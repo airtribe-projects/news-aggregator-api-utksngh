@@ -4,7 +4,17 @@ const { createUser, getUserByEmail } = require('../models/userModel');
 
 exports.signup = async (req, res) => {
     const { name, email, password, preferences } = req.body;
-    if (!email || !password) return res.status(400).json({ error: 'Email and password are required.' });
+    
+    // Basic validations
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Please provide a valid email address.' });
+    }
 
     const existingUser = getUserByEmail(email);
     if (existingUser) return res.status(400).json({ error: 'User already exists.' });
