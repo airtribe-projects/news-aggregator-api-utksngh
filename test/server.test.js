@@ -17,7 +17,7 @@ let token = '';
 tap.test('POST /users/signup', async (t) => { 
     const response = await server.post('/users/signup').send(mockUser);
     t.equal(response.status, 200);
-    t.end();
+    t.end(); 
 });
 
 tap.test('POST /users/signup with missing email', async (t) => {
